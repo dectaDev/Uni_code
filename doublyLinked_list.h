@@ -19,6 +19,8 @@ public:
     friend void printPRE(Dnode** head, long index);
     friend void printES(Dnode* head);
     friend void DeleteList(Dnode** head, long index);
+    friend void DeleteHead(Dnode **head);
+    friend void DeleteEnd(Dnode *head);
 };
 
 Dnode* newNod(double valu)
@@ -182,7 +184,7 @@ void printES(Dnode* head)
 
 void DeleteList(Dnode** head, long index)
 {
-    if(index >= lenList(*head))
+    if(index < 0 || index >= lenList(*head))
     {
         return ;
     }
@@ -202,15 +204,35 @@ void DeleteList(Dnode** head, long index)
 
     int i;
     Dnode* curr;
-    for(curr = *head, i = 0; i < index-1; i++, curr = curr->next);
+    for(curr = *head, i = 0; i < index - 1; i++, curr = curr->next);
 
-    hold = curr;
-    curr = curr->next;
+    hold = curr->next;
+    curr->next = curr->next->next;
     curr->befor = hold->befor;
 
     delete(hold);
 
     return ;
+}
+
+void DeleteHead(Dnode **head)
+{
+    Dnode *hold;
+    hold = (*head);
+    (*head) = (*head)->next;
+    (*head)->befor = nullptr; 
+    delete(hold);
+
+    return ;
+}
+void DeleteEnd(Dnode *head)
+{
+    Dnode *curr;
+    for(curr = head; curr->next->next != nullptr; curr = curr->next);
+    Dnode *hold;
+    hold = curr->next;
+    curr->next = curr->next->next;
+    curr->befor = hold->befor;
 }
 
 #endif

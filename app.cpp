@@ -12,18 +12,11 @@ using namespace std;
 
 int main(void)
 {
-
-    que a(12);
-    a.add(90);
-    a.add(89);
-    a.add(1234.567);
-    a.Print();
-    a.push();
-    a.Print();
-    
-
-
-
-
+    Dnode *head = newNod(1);
+    addEnd(head, newNod(3));
+    addEnd(head, newNod(89));
+    addEnd(head, newNod(67));
+    DeleteEnd(head);
+    Print(head);
     return 0;
 }
